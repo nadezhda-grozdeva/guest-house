@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper text-center" >
-            <img class="wrapper-bg" v-lazy="{src: 'src/assets/images/appointments-bg.jpg'}" alt="Борумовата къща" />
+        <img class="wrapper-bg" src="../assets/images/appointments-bg.jpg" alt="Борумовата къща" />
         <base-card class="wrapper-app">
             <base-subheading #subheading class="text-center">Резервирай сега</base-subheading>
             <div class="app-form text-left">

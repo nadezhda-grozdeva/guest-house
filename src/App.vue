@@ -35,8 +35,8 @@ export default {
     TheAbout: defineAsyncComponent(() =>
       import('./components/TheAbout.vue')
     ),
-    TheAmenities: defineAsyncComponent(() =>
-      import('./components/TheAmenities.vue')
+    TheHero: defineAsyncComponent(() =>
+      import('./components/TheHero.vue')
     ),
     TheAmenities: defineAsyncComponent(() =>
       import('./components/TheAmenities.vue')

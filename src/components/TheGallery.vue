@@ -1,8 +1,8 @@
 <template>
     <Carousel v-bind="settingsCarousel" :breakpoints="breakpoints" :transition="500" snapAlign="center" >
-      <Slide v-for="slide in slides" :key="slide" >
+      <Slide v-for="slide in slides" :key="slide.id" >
         <div class="carousel__item">
-          <img v-lazy="slide" alt="Борумовата Къща" />
+          <img :src="`${slide.src}`" alt="Борумовата Къща" />
         </div>
       </Slide>
 
@@ -24,15 +24,52 @@ export default {
   },
   setup () {
     const slides = [
-        '../src/assets/images/gallery/outside-house.jpg',
-        '../src/assets/images/gallery/outside-pool.jpg',
-        '../src/assets/images/gallery/outside-garden-2.jpg',
-        '../src/assets/images/gallery/outside-garden.jpg',
-        '../src/assets/images/gallery/inside-living-room.jpg',
-        '../src/assets/images/gallery/inside-living-room-2.jpg',
-        '../src/assets/images/gallery/inside-living-room-3.jpg',
-        '../src/assets/images/gallery/inside-living-room-4.jpg',
-        '../src/assets/images/gallery/inside-living-room-5.jpg',
+        {
+          id: 1,
+          src: new URL('@/assets/images/gallery/outside-house.jpg', import.meta.url).href
+        },
+        {
+          id: 2,
+          src: new URL('@/assets/images/gallery/outside-pool.jpg', import.meta.url).href
+        },
+        {
+          id: 3,
+          src: new URL('@/assets/images/gallery/outside-garden-2.jpg', import.meta.url).href
+        },
+        {
+          id: 4,
+          src: new URL('@/assets/images/gallery/outside-garden.jpg', import.meta.url).href
+        },
+        {
+          id: 5,
+          src: new URL('@/assets/images/gallery/inside-living-room.jpg', import.meta.url).href
+        },
+        {
+          id: 6,
+          src: new URL('@/assets/images/gallery/inside-living-room-2.jpg', import.meta.url).href
+        },
+        {
+          id: 7,
+          src: new URL('@/assets/images/gallery/inside-living-room-3.jpg', import.meta.url).href
+        },
+        {
+          id: 8,
+          src: new URL('@/assets/images/gallery/inside-living-room-4.jpg', import.meta.url).href
+        },
+        {
+          id: 9,
+          src: new URL('@/assets/images/gallery/inside-living-room-5.jpg', import.meta.url).href
+        },
+
+        // '../assets/images/gallery/outside-house.jpg',
+        // '../assets/images/gallery/outside-pool.jpg',
+        // '../assets/images/gallery/outside-garden-2.jpg',
+        // '../assets/images/gallery/outside-garden.jpg',
+        // '../assets/images/gallery/inside-living-room.jpg',
+        // '../assets/images/gallery/inside-living-room-2.jpg',
+        // '../assets/images/gallery/inside-living-room-3.jpg',
+        // '../assets/images/gallery/inside-living-room-4.jpg',
+        // '../assets/images/gallery/inside-living-room-5.jpg',
     ];
     const settingsCarousel = {
         itemsToShow: 1,

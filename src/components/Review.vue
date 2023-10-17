@@ -10,7 +10,7 @@
                 <p class="review-author">{{ review.author }}</p>
             </div>
         </div>
-        <img class="review-bg" v-lazy="{src: 'src/assets/images/reviews-bg.jpg'}" alt="Борумовата къща" />
+        <img class="review-bg" src="../assets/images/reviews-bg.jpg" alt="Борумовата къща" />
     </base-card>
 </template>
 

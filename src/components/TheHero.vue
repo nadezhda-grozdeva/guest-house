@@ -24,7 +24,14 @@
         filter: blur(5px);
         -webkit-filter: blur(5px);
         width: 100%;
-        height: 90vh;
+
+        @media only screen and (min-width: 768px) {
+            height: 90vh;
+        }
+
+        @include responsive(phone) {
+            height: 60vh;
+        }
     }
 
     .wrapper-text {
@@ -76,18 +83,6 @@
             }
         }
     }
-}
-
-.v-enter-from {
-    opacity: 0;
-    transform: translateY(-30px);
-}
-.v-enter-active {
-    transition: all 5s ease-out
-}
-.v-enter-to {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 </style>

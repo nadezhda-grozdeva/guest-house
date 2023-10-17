@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <img class="wrapper-bg" v-lazy="{src: 'src/assets/images/amenities.jpg'}" alt="Борумовата къща" />
+        <img class="wrapper-bg" src="../assets/images/amenities.jpg" alt="Борумовата къща" />
         <div class="wrapper-content text-center">
             <base-subheading #subheading class="text-center">Какво предлагаме?</base-subheading>
             <div class="amenities">
@@ -9,7 +9,7 @@
                         {{ item }}
                     </li>
                 </ul>
-                <img v-lazy="{ src: '../assets/images/amenities-2.png'}" class="text-center"/>
+                <img src="../assets/images/amenities-2.png" class="text-center"/>
                 <ul>
                     <li v-for="item in outsideAmenities">
                         {{ item }}
@@ -60,13 +60,14 @@ export default {
 
 .wrapper {
     position: relative;
+    padding: 4rem 0;
 
     @media only screen and (min-width: 601px) {
         padding: 4rem 0;
     }
 
     @include responsive(phone) {
-        padding: 0;
+        // padding: 0;
     }
 
     &-bg {
@@ -83,7 +84,7 @@ export default {
             width: 80%;
         }
 
-        @media only screen and (min-width: 601px) and (max-width: 1224px) {
+        @media only screen and (max-width: 1224px) {
             width: 90%;
         }
 
@@ -113,8 +114,15 @@ export default {
         }
 
         img {
-            width: 60%;
-            margin: 2rem auto
+            margin: 2rem auto;
+
+            @media only screen and (max-width: 767px) {
+                width: 70%;
+            }
+
+            @media only screen and (min-width: 768px) {
+                width: 60%;
+            }
         }
     }
 }

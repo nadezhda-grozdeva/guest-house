@@ -19,10 +19,13 @@ h2 {
         font-size: 2.5rem;
     }
 
+    @media only screen and (max-width: 400px) {
+        font-size: 1.5rem;
+    }
+    
     @media only screen and (min-width: 768px) {
         font-size: 3.5rem;
     }
-
 
     @media only screen and (min-width: 768px) {
         &:after {
