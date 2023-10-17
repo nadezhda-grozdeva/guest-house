@@ -9,7 +9,7 @@
                         {{ item }}
                     </li>
                 </ul>
-                <img v-lazy="{ src: 'src/assets/images/amenities-2.png'}" class="text-center"/>
+                <img v-lazy="{ src: '../assets/images/amenities-2.png'}" class="text-center"/>
                 <ul>
                     <li v-for="item in outsideAmenities">
                         {{ item }}
