@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Comforter&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Marck+Script&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Comforter&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Marck+Script&display=swap");
+@use 'scss-reset/reset';
+html {
+  font-size: 16px;
+}
+
+@media screen and (min-width: 1225px) and (max-width: 1623px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width: 993px) and (max-width: 1224px) {
+  html {
+    font-size: 11px;
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 992px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+body h1, body h2, body h3, body h4, body h5, body h6 {
+  font-family: "Comforter", cursive;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
+}

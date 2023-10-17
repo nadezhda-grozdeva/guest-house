@@ -1,0 +1,55 @@
+@import "./variables.scss";
+
+
+@mixin clearfix {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+@mixin subheading-styles {
+    font-family: $font-family-heading;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+}
+
+@mixin text-styles {
+    font-size: 1.8rem;
+    font-family: 'Marck Script', cursive;
+    color: $base-text-color;
+}
+
+@mixin blured-img-bg($blur-px) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    filter: blur($blur-px);
+    -webkit-filter: blur($blur-px);
+}
+
+@mixin responsive($breakpoint) {
+    @if $breakpoint == phone {
+        @media only screen and (max-width: 600px) { @content };    //600px
+    }
+    @if $breakpoint == portrait-tablets {
+        @media only screen and (max-width: 768px) { @content };     //900px
+    }
+    @if $breakpoint == landscape-tablets {
+        @media only screen and (max-width: 992px) { @content };     //900px
+    }
+    @if $breakpoint == medium-desktop {
+        @media only screen and (max-width: 1224px) { @content };
+    }
+    @if $breakpoint == big-desktop {
+        @media only screen and (max-width: 1624px) { @content };
+    }
+    @if $breakpoint == large-desktop {
+        @media only screen and (min-width: 1920px) { @content };
+    }
+}
+

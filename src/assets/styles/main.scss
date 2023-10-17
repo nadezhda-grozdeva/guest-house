@@ -1,0 +1,62 @@
+@use 'scss-reset/reset';
+@import './variables.scss';
+@import './mixins.scss';
+
+
+html {
+    font-size: 16px;
+
+    @media screen and (min-width: 1225px) and (max-width: 1623px) {
+        font-size: 12px;
+    }
+
+    @media screen and (min-width: 993px) and (max-width: 1224px) {
+        font-size: 11px;
+    }
+
+    @media screen and (min-width: 600px) and (max-width: 992px) {
+        font-size: 12px;
+    }
+
+    @include responsive(large-desktop) {
+        font-size: 16px;
+    }
+
+    @include responsive(phone) {
+        font-size: 12px;
+    }
+}
+
+body {
+    margin: 0;
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: $font-family-heading;
+    }
+}
+
+.flex {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
+}
+
+
