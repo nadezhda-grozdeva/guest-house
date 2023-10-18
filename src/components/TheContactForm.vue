@@ -2,12 +2,11 @@
     <form @submit.prevent="submitForm">
         <div class="flex">
             <div class="form-control">
-            <!-- <label for="firstName">Име:</label> -->
+                <label for="contact-name">Вашите имена</label>
                 <input 
-                    placeholder="Вашите имена" 
                     type="text" 
-                    id="name" 
-                    name="name" 
+                    id="contact-name" 
+                    name="contact-name" 
                     :class="{'border-red': v$.name.$error}"
                     v-model.trim="v$.name.$model" 
                     @blur="v$.name.$touch"
@@ -17,19 +16,14 @@
                         <span> {{ error.$message }}</span></p>
                 </div>
             </div>
-            <!-- <div class="form-control">
-                <label for="lastName">Фамилия:</label> 
-                <input placeholder="Вашата фамилия" type="text" id="lastName" name="lastName" required/>
-            </div> -->
         </div>
         <div class="flex flex-column">
             <div class="form-control">
-                <!-- <label for="phone">Телефон:</label> -->
+                <label for="contact-phone">Вашият телефон:</label>
                 <input 
-                    placeholder="Телефон" 
                     type="number" 
-                    id="phone" 
-                    name="phone" 
+                    id="contact-phone" 
+                    name="contact-phone" 
                     :class="{'border-red': v$.phone.$error}"
                     v-model.trim="v$.phone.$model" 
                     @blur="v$.phone.$touch"
@@ -40,12 +34,11 @@
                 </div>
             </div>
             <div class="form-control">
-                <!-- <label for="email">E-mail:</label> -->
+                <label for="contact-email">Вашият e-mail</label>
                 <input 
-                    placeholder="Вашият e-mail" 
                     type="email" 
-                    id="email" 
-                    name="email" 
+                    id="contact-email" 
+                    name="contact-email" 
                     :class="{'border-red': v$.email.$error}"
                     v-model.trim="v$.email.$model" 
                     @blur="v$.email.$touch"
@@ -57,11 +50,10 @@
             </div>
         </div>
         <div class="form-control">
-            <!-- <label for="request">Вашето запитване</label> -->
+            <label for="contact-text">Вашето запитване</label>
             <textarea 
-                placeholder="Вашето запитване" 
-                id="text" 
-                name="text" 
+                id="contact-text" 
+                name="contact-text" 
                 rows="4" 
                 :class="{'border-red': v$.text.$error}"
                 v-model.trim="v$.text.$model" 
@@ -153,6 +145,9 @@ export default {
     }
 
     .form-control {
+        position: relative;
+        margin: 1rem 0;
+
         @media only screen and (min-width: 1224px) {
             flex-basis: 100%;
 
@@ -160,41 +155,56 @@ export default {
                 width: 100%;
             }
         }
-    }
 
-    input,
-    textarea {
-        margin-top: 1rem;
-        font-size: 0.9em;
-        padding: 0.5rem;
-    }
-
-    input {
-        display: inline-block;
-
-        @include responsive(medium-desktop) {
-            width: 100%;
+        label {
+            position: absolute;
+            z-index: 3;
+            top: -14px;
+            left: 10px;
+            background: #fff;
+            padding: 0 10px;
         }
-    }
 
-    // REMOVE ARROWS ON INPUT TYPE NUMBER
-    /* Chrome, Safari, Edge, Opera */
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
+        input,
+        textarea {
+            font-size: 0.9em;
+            padding: 0.5rem;
+            background: transparent;
+            position: relative;
+            z-index: 2;
+        }
 
-    /* Firefox */
-    input[type=number] {
-        -moz-appearance: textfield;
-    }
-
-    .form-control {
         input {
+            display: inline-block;
+            margin: 0;
+
+            @include responsive(medium-desktop) {
+                width: 100%;
+            }
+
             @include responsive(landscape-tablets) {
                 width: 100%;
             }
+
+            &:focus ~ label {
+                top: -20px;
+                left: 10px;
+                background: #fff;
+                padding: 5px 10px;
+            }
+        }
+
+        // REMOVE ARROWS ON INPUT TYPE NUMBER
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
         }
 
         &:first-child input {
