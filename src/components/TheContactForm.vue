@@ -98,9 +98,10 @@ export default {
                 required: helpers.withMessage('Моля, въведете Вашите имена.', required),
                 minLength: helpers.withMessage('Полето трябва да съдържа поне 5 символа.', minLength(5))
             },
-            phone: { 
+            phone: {
                 required: helpers.withMessage('Моля, въведете Вашият телефон.', required),
                 integer: helpers.withMessage('Моля, въведете валиден телефонен номер.', integer),
+                minLength: helpers.withMessage('Полето трябва да съдържа поне 10 символа.', minLength(10))
             },
             email: { 
                 required: helpers.withMessage('Моля, въведете Вашият email.', required),
@@ -108,7 +109,7 @@ export default {
             },
             text: {
                 required: helpers.withMessage('Моля, въведете Вашето запитване.', required),
-                // minLength: helpers.withMessage('Полето трябва да съдържа поне 20 символа.', minLength(20))
+                minLength: helpers.withMessage('Полето трябва да съдържа поне 10 символа.', minLength(10))
             }
         }
 
@@ -216,9 +217,11 @@ export default {
         .border-red {
             border-bottom: 3px solid red;
         }
-        p.warning > span {
+
+        p.warning {
             color: red;
             font-size: 1.2rem;
+            text-align: left;
         }
     }
 

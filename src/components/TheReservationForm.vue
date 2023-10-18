@@ -8,21 +8,20 @@
             <div class="app-form text-left">
                 <form @submit.prevent="submitForm">
                     <div class="form-control">
-                        <label for="name">Име:</label>
-                        <input 
+                        <input
                             :class="{'border-red': v$.name.$error}"
                             type="text" 
                             id="name" 
                             name="name" 
                             v-model.trim="v$.name.$model" 
                             @blur="v$.name.$touch"/>
+                        <label for="name">Вашите имена</label>
                         <div v-if="v$.name.$error">
                             <p v-for="error of v$.name.$errors" :key="error.$uid" class="warning" >
                                 <span> {{ error.$message }}</span></p>
                         </div>
                     </div>
                     <div class="form-control">
-                        <label for="phone">Телефон:</label>
                         <input 
                             :class="{'border-red': v$.phone.$error}" 
                             type="number"
@@ -30,6 +29,7 @@
                             name="phone"
                             v-model.trim="v$.phone.$model" 
                             @blur="v$.phone.$touch"/>
+                        <label for="phone" v-if="!v$.phone.$model.length > 0">Вашият телефон</label>
                         <div v-if="v$.phone.$error">
                             <p v-for="error of v$.phone.$errors" :key="error.$uid" class="warning" >
                                 <span>{{ error.$message }}</span>
@@ -37,7 +37,6 @@
                         </div>
                     </div>
                     <div class="form-control">
-                        <label for="email">E-mail:</label>
                         <input 
                             :class="{'border-red': v$.email.$error}" 
                             type="email" 
@@ -45,6 +44,7 @@
                             name="email" 
                             v-model.trim="v$.email.$model" 
                             @blur="v$.email.$touch"/>
+                        <label for="email" v-if="!v$.email.$model.length > 0">Вашият e-mail:</label>
                         <div v-if="v$.email.$error">
                             <p v-for="error of v$.email.$errors" :key="error.$uid" class="warning" >
                                 <span>{{ error.$message }}</span>
@@ -144,6 +144,7 @@ export default {
             phone: { 
                 required: helpers.withMessage('Моля, въведете Вашият телефон.', required),
                 integer: helpers.withMessage('Моля, въведете валиден телефонен номер.', integer),
+                minLength: helpers.withMessage('Полето трябва да съдържа поне 10 символа.', minLength(10))
             },
             email: { 
                 required: helpers.withMessage('Моля, въведете Вашият email.', required),
@@ -289,7 +290,7 @@ export default {
         .app-form {
             font: 2rem $font-family-text;
             color: $base-text-color;
-            margin: 3rem auto;
+            margin: 5rem auto;
 
             @media only screen and (min-width: 993px) {
                 width: 60%;
@@ -303,31 +304,63 @@ export default {
                 width: 90%;
             }
 
-            input {
-                display: block;
-                width: 100%;
-                font: inherit;
-                margin: 0.5rem 0;
-            }
+            .form-control {
+                position: relative;
+                margin-bottom: 2.5rem;
 
-            select {
-            width: auto;
-            }
+                input {
+                    display: block;
+                    width: 100%;
+                    font: inherit;
+                    margin: 0.5rem 0;
+                    height: 5rem;
+                    padding-left: 10px;
+                    padding-top: 15px;
+                }
 
-            input[type='checkbox'],
-            input[type='radio'] {
-            display: inline-block;
-            width: auto;
-            margin-right: 1rem;
-            }
+                select {
+                width: auto;
+                }
 
-            input[type='checkbox'] + label,
-            input[type='radio'] + label {
-            font-weight: normal;
-            }
+                input[type='checkbox'],
+                input[type='radio'] {
+                display: inline-block;
+                width: auto;
+                margin-right: 1rem;
+                }
 
-            label {
-                margin-top: 1 rem;
+                input[type='checkbox'] + label,
+                input[type='radio'] + label {
+                font-weight: normal;
+                }
+
+                input:focus ~ label {
+                    font-size: 1.2rem;
+                    top: 2px;
+                }
+
+                label {
+                    margin-top: 1 rem;
+                    font-size: 2rem;
+                    position: absolute;
+                    left: 10px;
+                    top: 15px;
+                    transition: all .5s ease-in;
+                }
+
+                // REMOVE ARROWS ON INPUT TYPE NUMBER
+                /* Chrome, Safari, Edge, Opera */
+                input::-webkit-outer-spin-button,
+                input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+                }
+
+                /* Firefox */
+                input[type=number] {
+                -moz-appearance: textfield;
+                }
+
             }
 
             .border-red {
@@ -336,19 +369,6 @@ export default {
             p.warning > span {
                 color: red;
                 font-size: 1.2rem;
-            }
-
-            // REMOVE ARROWS ON INPUT TYPE NUMBER
-            /* Chrome, Safari, Edge, Opera */
-            input::-webkit-outer-spin-button,
-            input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-            }
-
-            /* Firefox */
-            input[type=number] {
-            -moz-appearance: textfield;
             }
 
             .flex {

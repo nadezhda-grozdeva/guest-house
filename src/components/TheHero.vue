@@ -1,19 +1,35 @@
 <template>
-    <Transition name="hero" appear>
-        <div class="wrapper">
-            <img class="wrapper-img" src="../assets/images/hero/hero-img-3.jpg" alt="Borumovata kushta" />
-            <div class="wrapper-text">
-                <h1>Борумовата къща</h1>
-            </div>
-        </div>
-    </Transition>
+    <div class="wrapper" ref="target">
+        <TransitionGroup name="fade">
+            <template v-if="animate">
+                <img class="wrapper-img" src="../assets/images/hero/hero-img-3.jpg" alt="Borumovata kushta" />
+                <div class="wrapper-text">
+                    <h1>Борумовата къща</h1>
+                </div>
+            </template>
+        </TransitionGroup>
+    </div>
 </template>
 
 <script>
+//  COMPOSABLE
+import { useIntersectionObserver } from '../composables/intersectionObserver.js';
+
+export default {
+    setup() {
+        const { animate, target } = useIntersectionObserver()
+
+        return {
+            animate,
+            target
+        }
+    }
+}
 </script>
 
 <style scoped lang="scss">
 @import '../assets/styles/mixins';
+@import '../assets/styles/animations';
 
 .wrapper {
     position: relative;
