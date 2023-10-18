@@ -6,11 +6,17 @@ This is a demo website for a guest house.
 - Vite
 - Vue Router (TODO)
 - Pinia
+- Firebase
 - Sass
 - Vuelidate (https://vuelidate-next.netlify.app/)
 - Vue3-carousel (https://ismail9k.github.io/vue3-carousel/)
 - Vue-datepicker (https://vue3datepicker.com/)
 - Vue3-lazyload (https://github.com/murongg/vue3-lazyload)
+
+*******************************
+
+#TODO
+- user login
 
 *******************************
 
