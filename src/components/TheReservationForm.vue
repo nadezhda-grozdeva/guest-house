@@ -1,6 +1,8 @@
 <template>
-    <div class="wrapper text-center" >
-        <img class="wrapper-bg" src="../assets/images/appointments-bg.jpg" alt="Борумовата къща" />
+    <div class="wrapper text-center" ref="target">
+        <TransitionGroup name="fade">
+            <template v-if="animate">
+        <img class="wrapper-bg" v-lazy="backgroundImageUrl" alt="Борумовата къща" />
         <base-card class="wrapper-app">
             <base-subheading #subheading class="text-center">Резервирай сега</base-subheading>
             <div class="app-form text-left">
@@ -68,17 +70,30 @@
                     <div class="form-control">
                         <base-button #base-button class="button">Резервирай</base-button>
                     </div>
+                    <transition name="fadeInOut">
+                        <p v-if="ServerResponseMessage.message" class="formResult" :class="ServerResponseMessage.response">
+                            {{ ServerResponseMessage.message }}
+                        </p>
+                    </transition>
                 </form>
             </div>
         </base-card>
+    </template>
+
+    </TransitionGroup>
     </div>
 </template>
 
 <script>
-import { ref, reactive, computed, nextTick } from 'vue';
+import { ref, reactive, computed } from 'vue';
+
+//  COMPOSABLE
+import { useIntersectionObserver } from '../composables/intersectionObserver.js'
 
 //CALENDAR STORE
 import { useCalendarStore } from '../stores/calendar';
+import { useReservationsStore } from '../stores/reservations';
+
 
 //VUELIDATE
 import { useVuelidate } from '@vuelidate/core'
@@ -98,22 +113,27 @@ export default {
         BaseCard,
     },
     setup() {
+        const { animate, target } = useIntersectionObserver();
+        const ServerResponseMessage = reactive({});
+        const backgroundImageUrl = new URL('@/assets/images/appointments-bg.jpg', import.meta.url).href;
         const datesToBeDisabled = reactive([]);
         const datesRange = reactive([]);
         const invalidCalendarInput = ref(false);
         const calendarPlaceholderDefault = ref('Настаняване - Напускане');
         let calendarPlaceholder = ref('');
-        calendarPlaceholder.value = calendarPlaceholderDefault.value
 
         const pricePerNight = ref(490);
 
-
+        //SETTING STORE
+        const reservationsStore = useReservationsStore();
         const calendarStore = useCalendarStore();
 
         const state = reactive({
             name: '',
             phone: '',
-            email: ''
+            email: '',
+            checkInDate: '',
+            checkOutDate: '',
         })
 
         const rules = {
@@ -133,6 +153,12 @@ export default {
 
         const v$ = useVuelidate(rules, state)
 
+        const totalPrice = computed(function() {
+            return datesRange.length * pricePerNight.value
+        })
+
+        calendarPlaceholder.value = calendarPlaceholderDefault.value
+
         async function submitForm() {
             const isFormValid = await v$.value.$validate()
             if(!datesRange || datesRange.length === 0) {
@@ -143,11 +169,30 @@ export default {
 
             if (isFormValid && !invalidCalendarInput.value) {
                 calendarStore.addDisabledDates(datesToBeDisabled)
+                const serverResponse = await reservationsStore.addReservation({
+                    id: Math.floor(Math.random() * 100),
+                    name: state.name,
+                    phone: state.phone,
+                    email: state.email,
+                    checkInDate: state.checkInDate,
+                    checkOutDate: state.checkOutDate,
+                })
+                .then((res) => {
+                    ServerResponseMessage.response = res.response,
+                    ServerResponseMessage.message = res.message,
+                    setTimeout(() => {
+                        ServerResponseMessage.response = ''
+                        ServerResponseMessage.message = ''
+                    }, 5000);
+                })
                 // RESET FORM
                 state.name='';
                 state.phone='';
                 state.email='';
+                datesRange.splice(0);
                 v$.value.$reset();
+
+                // RESET CALENDAR PLACEHOLDER
                 calendarPlaceholder.value = calendarPlaceholderDefault.value;
             }
         }
@@ -160,6 +205,11 @@ export default {
             datesToBeDisabledList.forEach(element => {
                 datesToBeDisabled.push(element)
             });
+
+            if(datesToBeDisabled.length === 2) {
+                state.checkInDate = datesToBeDisabled[0];
+                state.checkOutDate = datesToBeDisabled[1];
+            }
 
             //SET CALENDAR PLACEHOLDER WITH CHECK-IN AND CHECK-OUT DATES
             calendarPlaceholder.value = `${datesToBeDisabled[0].toString().split("-").reverse().join("-")} - ${datesToBeDisabled[1].toString().split("-").reverse().join("-")}`
@@ -179,11 +229,8 @@ export default {
             invalidCalendarInput.value = isValid.value
         }
 
-        const totalPrice = computed(function() {
-            return datesRange.length * pricePerNight.value
-        })
-
         return {
+            backgroundImageUrl,
             state, v$,
             submitForm,
             dataFromCalendar,
@@ -191,7 +238,10 @@ export default {
             datesRange,
             invalidCalendar,
             invalidCalendarInput,
-            calendarPlaceholder
+            calendarPlaceholder,
+            ServerResponseMessage,
+            animate,
+            target
         }
     }
 
@@ -201,6 +251,7 @@ export default {
 <style scoped lang="scss">
 @import '../assets/styles/variables';
 @import '../assets/styles/mixins';
+@import '../assets/styles/animations';
 
 .wrapper {
     position: relative;
@@ -329,6 +380,17 @@ export default {
                 font-size: 1.2rem;
                 margin-bottom: 2rem;
             }
+            .formResult {
+                margin: 1rem 0;
+                animate: fadeInOut 3s;
+            }
+
+            .formResult.success {
+                color: green;
+            }
+            .formResult.error {
+                color: red
+            }
         }
     }
 }
@@ -337,5 +399,26 @@ export default {
     border-bottom: 3px solid red;
 }
 
+// TRANSITION CLASSES
+.fadeInOut-enter-from,
+.fadeInOut-leave-to {
+    opacity: 0;
+}
+
+.fadeInOut-enter-to,
+.fadeInOut-leave-from {
+    opacity: 1;
+}
+
+.fadeInOut-enter-active,
+.fadeInOut-leave-active {
+   transition: all 1s ease-in;
+}
+
+@keyframes fadeInOutAnimation{
+    0% {opacity: 0;}
+    50% { opacity: 1;}
+    100% {opacity: 0;}
+}
 
 </style>

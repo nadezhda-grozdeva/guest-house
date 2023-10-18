@@ -1,26 +1,36 @@
 <template>
-    <div class="wrapper">
-        <base-subheading #subheading class="text-center">другите за нас</base-subheading>
-        <div class="wrapper-reviews">
-            <carousel v-bind="settings" :breakpoints="breakpoints">
-                <slide v-for="review in reviews" :key="review">
-                    <review :review="review"></review>
-                </slide>
-                <template #addons>
-                <pagination />
-                </template>
-            </carousel>
-            <!-- <template v-for="review in reviews">
-                <review :review="review"></review>
-            </template> -->
-        </div>
+    <div class="wrapper" ref="target">
+        <TransitionGroup name="fade">
+            <template v-if="animate">
+                <base-subheading #subheading class="text-center">другите за нас</base-subheading>
+                <div class="wrapper-reviews">
+                    <carousel v-bind="settings" :breakpoints="breakpoints">
+                        <slide v-for="review in reviews" :key="review">
+                            <review :review="review"></review>
+                        </slide>
+                        <template #addons>
+                        <pagination />
+                        </template>
+                    </carousel>
+                </div>
+            </template>
+        </TransitionGroup>
+
     </div>
 </template>
 
 <script>
+//  COMPOSABLE
+import { useIntersectionObserver } from '../composables/intersectionObserver.js'
+
+// STORE
 import { useReviewsStore } from '../stores/reviews';
+
+// COMPONENTS
 import BaseSubheading from './UI/BaseSubheading.vue';
 import Review from './Review.vue';
+
+// GALLERY CAROUSEL
 import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
@@ -34,6 +44,7 @@ export default {
         Navigation,
     },
     setup() {
+        const { animate, target } = useIntersectionObserver()
         const reviews = useReviewsStore().getReviews;
         const settings = {
             itemsToShow: 1,
@@ -54,15 +65,20 @@ export default {
         return {
             reviews,
             settings,
-            breakpoints
+            breakpoints,
+            animate,
+            target
         }
-    }
+    },
 }
 </script>
 
 <style scoped lang="scss">
 @import '../assets/styles/mixins';
+@import '../assets/styles/animations';
+
 .wrapper {
+    min-height: 500px;
     padding: 2rem 0 4rem;
     position: relative;
 

@@ -16,13 +16,6 @@
 
 <script>
 import TheNavigationMenu from './components/TheNavigationMenu.vue';
-// import TheHero from './components/TheHero.vue';
-// import TheAbout from './components/TheAbout.vue';
-// import TheAmenities from './components/TheAmenities.vue';
-// import TheReviews from './components/TheReviews.vue';
-// import TheGallery from './components/TheGallery.vue';
-// import TheReservationForm from './components/TheReservationForm.vue';
-// import TheFooter from './components/TheFooter.vue';
 
 import { defineAsyncComponent } from 'vue'
 
@@ -56,6 +49,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import './assets/styles/main.scss'
-
+@import './assets/styles/main.scss';
+// @import '../assets/styles/variables.scss';
+// @import '../assets/styles/mixins.scss';
+// @import '../assets/styles/animations.scss';
 </style>

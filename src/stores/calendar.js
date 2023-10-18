@@ -15,8 +15,7 @@ export const useCalendarStore = defineStore('calendar', {
       })
       .then((data) => {
         for (const id in data) {
-          const items = data[id].dates;
-
+          const items = data[id];
           items.forEach(item => {
             this.disabledDates.push(item)
           })
@@ -38,9 +37,7 @@ export const useCalendarStore = defineStore('calendar', {
         headers: {
           "Content-Type": 'application/json',
         },
-        body: JSON.stringify({
-          dates
-        })
+        body: JSON.stringify(dates)
       }).then(response => {
         if(response.ok) {
           // do something...

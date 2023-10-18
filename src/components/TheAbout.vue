@@ -1,14 +1,22 @@
 <template>
-    <div class="wrapper">
-        <div class="wrapper-text text-center">
-            <base-subheading #subheading>Кои сме ние?</base-subheading>
-            <p>Само на 5 минути от центъра на Велико Търново, нашата къща за гости е разположена в подножието на борова гора, освен уникалният чист въздух това ви осигурява и най-прекрасната гледка в района. Всяка от трите спални е оборудвана с висок клас матрак и са разположени на вторият етаж и отново предлагат освен уединение и невероятна гледка. Външно оборудвано барбекю с маса изцяло оборудвана кухня и просторна всекидневна и огромен зелен двор са много малка част от всичко което ви очаква при нас. </p>
-        </div>
-        <the-gallery></the-gallery>
+    <div class="wrapper" ref="target">
+        <TransitionGroup name="fade">
+            <template v-if="animate">
+            <div class="wrapper-text text-center">
+                <base-subheading #subheading>Кои сме ние?</base-subheading>
+                <p>Само на 5 минути от центъра на Велико Търново, нашата къща за гости е разположена в подножието на борова гора, освен уникалният чист въздух това ви осигурява и най-прекрасната гледка в района. Всяка от трите спални е оборудвана с висок клас матрак и са разположени на вторият етаж и отново предлагат освен уединение и невероятна гледка. Външно оборудвано барбекю с маса изцяло оборудвана кухня и просторна всекидневна и огромен зелен двор са много малка част от всичко което ви очаква при нас. </p>
+            </div>
+            <the-gallery></the-gallery>
+        </template>
+        </TransitionGroup>
     </div>
 </template>
 
 <script>
+//  COMPOSABLE
+import { useIntersectionObserver } from '../composables/intersectionObserver.js'
+
+//COMPONENTS
 import BaseSubheading from './UI/BaseSubheading.vue';
 import TheGallery from './TheGallery.vue';
 
@@ -16,6 +24,14 @@ export default {
     components: { 
         BaseSubheading,
         TheGallery
+    },
+    setup() {
+        const { animate, target } = useIntersectionObserver()
+
+        return {
+            animate,
+            target
+        }
     }
 }
 </script>
@@ -23,6 +39,7 @@ export default {
 <style scoped lang="scss">
 @import '../assets/styles/mixins';
 @import '../assets/styles/variables';
+@import '../assets/styles/animations';
 
 .wrapper {
     padding: 5rem 0;
@@ -76,9 +93,5 @@ export default {
             @include text-styles;
         }
     }
-
 }
-
-
-
 </style>

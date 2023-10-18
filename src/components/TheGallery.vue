@@ -2,10 +2,9 @@
     <Carousel v-bind="settingsCarousel" :breakpoints="breakpoints" :transition="500" snapAlign="center" >
       <Slide v-for="slide in slides" :key="slide.id" >
         <div class="carousel__item">
-          <img :src="`${slide.src}`" alt="Борумовата Къща" />
+          <img v-lazy="{src: `${slide.src}`}" alt="Борумовата Къща" />
         </div>
       </Slide>
-
       <template #addons>
         <Pagination />
       </template>
@@ -60,20 +59,9 @@ export default {
           id: 9,
           src: new URL('@/assets/images/gallery/inside-living-room-5.jpg', import.meta.url).href
         },
-
-        // '../assets/images/gallery/outside-house.jpg',
-        // '../assets/images/gallery/outside-pool.jpg',
-        // '../assets/images/gallery/outside-garden-2.jpg',
-        // '../assets/images/gallery/outside-garden.jpg',
-        // '../assets/images/gallery/inside-living-room.jpg',
-        // '../assets/images/gallery/inside-living-room-2.jpg',
-        // '../assets/images/gallery/inside-living-room-3.jpg',
-        // '../assets/images/gallery/inside-living-room-4.jpg',
-        // '../assets/images/gallery/inside-living-room-5.jpg',
     ];
     const settingsCarousel = {
         itemsToShow: 1,
-        // snapAlign: 'center',
     };
 
     const breakpoints = {
@@ -97,7 +85,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

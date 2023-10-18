@@ -1,7 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createMemoryHistory } from 'vue-router';
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createMemoryHistory(),
   routes: [],
   scrollBehavior(to, from, savedPosition) {
     // console.log(window.location.href)
@@ -19,7 +19,6 @@ router.afterEach(function(to, from) {
   // sending analytics data
   // console.log('Global afterEach');
   // console.log( 'TO: ' + to.path);
-  // console.log(to, from);
 
 });
 

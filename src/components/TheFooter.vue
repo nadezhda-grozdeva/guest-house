@@ -1,5 +1,7 @@
 <template>
-    <div class="wrapper flex">
+    <div class="wrapper flex" ref="target">
+        <TransitionGroup name="fade">
+            <template v-if="animate">
         <div class="wrapper-address">
             <h3>Борумовата къща</h3>
             <p>гр. Дебелец 5030, обл. В. Търново</p>
@@ -21,15 +23,30 @@
             <h3 class="text-center">Имате въпрос?</h3>
            <the-contact-form></the-contact-form>
         </div>
+    </template>
+        </TransitionGroup>
     </div>
 </template>
 
 <script>
+//  COMPOSABLE
+import { useIntersectionObserver } from '../composables/intersectionObserver.js'
+
+
+// COMPONENTS
 import TheContactForm from './TheContactForm.vue';
 
 export default {
     components: {
         TheContactForm,
+    },
+    setup() {
+        const { animate, target } = useIntersectionObserver()
+
+        return {
+            animate,
+            target
+        }
     }
 }
 </script>
@@ -37,7 +54,7 @@ export default {
 <style scoped lang="scss">
 @import '../assets/styles/variables';
 @import '../assets/styles/mixins';
-
+@import '../assets/styles/animations';
 
 .wrapper {
     padding: 4rem 0;
@@ -54,12 +71,6 @@ export default {
         flex-direction: row;
         justify-content: space-between;
     }
-
-    // @media only screen and (min-width: 1224px) {
-    //     width: 80%;
-    //     margin: 0 auto;
-    //     // padding: 0 .7rem;
-    // }
 
     @media only screen and (min-width: 768px) and (max-width: 1224px) {
         padding: 4rem 1rem;

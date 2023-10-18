@@ -1,0 +1,10 @@
+// FADE IN TRANSITION CLASSES
+.fade-enter-from {
+    opacity: 0;
+}
+.fade-enter-to{
+    opacity: 1;
+}
+.fade-enter-active {
+    transition: all 1s ease-in;
+}

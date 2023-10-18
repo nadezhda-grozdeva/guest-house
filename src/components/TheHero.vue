@@ -1,12 +1,12 @@
 <template>
-    <div class="wrapper">
-        <img class="wrapper-img" src="../assets/images/hero/hero-img-3.jpg" alt="Borumovata kushta" />
-        <div class="wrapper-text">
-            <Transition>
+    <Transition name="hero" appear>
+        <div class="wrapper">
+            <img class="wrapper-img" src="../assets/images/hero/hero-img-3.jpg" alt="Borumovata kushta" />
+            <div class="wrapper-text">
                 <h1>Борумовата къща</h1>
-            </Transition>
+            </div>
         </div>
-    </div>
+    </Transition>
 </template>
 
 <script>
@@ -76,6 +76,7 @@
 
             @include responsive(phone) {
                 font-size: 2rem;
+                font-weight: 700;
             }
 
             span {
@@ -85,4 +86,14 @@
     }
 }
 
+// TRANSITION CLASSES
+.hero-enter-from {
+    opacity: 0;
+}
+.hero-enter-to{
+    opacity: 1;
+}
+.hero-enter-active {
+    transition: all 1s ease-in;
+}
 </style>

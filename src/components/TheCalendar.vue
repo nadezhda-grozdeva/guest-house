@@ -24,8 +24,10 @@
 <script>
 import { reactive, ref, computed } from 'vue';
 
+// STORE
 import { useCalendarStore } from '../stores/calendar';
 
+// VUE DATEPICKER
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import '../assets/styles/calendar.css';
@@ -104,7 +106,6 @@ export default {
             calendarPreviewDates,
             invalidCountDatesSelected,
             closedCalendar
-            // datesRangeList
         }
     }
 }
@@ -121,7 +122,7 @@ export default {
 }
 .flex {
     justify-content: space-between;
-    
+
     p {
         font: 2rem $font-family-text;
         color: $base-text-color;

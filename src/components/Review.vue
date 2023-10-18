@@ -10,13 +10,15 @@
                 <p class="review-author">{{ review.author }}</p>
             </div>
         </div>
-        <img class="review-bg" src="../assets/images/reviews-bg.jpg" alt="Борумовата къща" />
+        <img class="review-bg" v-lazy="backgroundImageUrl" alt="Борумовата къща" />
     </base-card>
 </template>
 
 <script>
-import BaseCard from './UI/BaseCard.vue';
 import { ref } from 'vue';
+
+// COMPONENTS
+import BaseCard from './UI/BaseCard.vue';
 
 export default {
     components: {
@@ -24,6 +26,7 @@ export default {
     },
     props: ['review'],
     setup(props) {
+        const backgroundImageUrl = new URL('@/assets/images/reviews-bg.jpg', import.meta.url).href;
         let showFullText = ref(false);
         let reviewFullText = props.review.review;
         let reviewShortText = ref(null);
@@ -38,6 +41,7 @@ export default {
         };
 
         return {
+            backgroundImageUrl,
             reviewFullText,
             reviewShortText,
             showFullText,

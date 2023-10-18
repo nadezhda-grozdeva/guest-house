@@ -191,10 +191,6 @@ export default {
     }
 
     .form-control {
-        // @media only screen and (min-width: 1224px) {
-        //     flex-basis: 50%;
-        // }
-
         input {
             @include responsive(landscape-tablets) {
                 width: 100%;
@@ -220,7 +216,6 @@ export default {
         width: 100%;
     }
     button {
-        // font-size: 1.1rem;
         padding: .5rem 1rem;
         margin-top: 1rem;
     }
