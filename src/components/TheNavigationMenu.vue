@@ -1,8 +1,5 @@
 <template>
-<!-- <Transition name="fade"> -->
-    <div class="wrapper" ref="target">
-        <TransitionGroup name="fade">
-            <template v-if="animate">
+    <div class="wrapper">
         <div class="menu-icons" @click="toggleMenuIcon">
             <img :src="menuIcon" alt="Menu icon" >
         </div>
@@ -17,22 +14,15 @@
                 </ul>
             </div>
         </Transition>
-    </template>
-        </TransitionGroup>
     </div>
-<!-- </Transition> -->
 </template>
 
 <script>
 import { ref, computed } from 'vue';
 
-//  COMPOSABLE
-import { useIntersectionObserver } from '../composables/intersectionObserver.js'
-
 export default {
     setup() {
         const toggleMenu = ref('false');
-        const { animate, target } = useIntersectionObserver()
 
         const menuIcon = computed(function() {
             const menuIcon = new URL('@/assets/images/icons/bars-solid.svg', import.meta.url).href;
@@ -47,9 +37,7 @@ export default {
         return {
             menuIcon,
             toggleMenuIcon,
-            toggleMenu,
-            animate,
-            target
+            toggleMenu
         }
     }
 }
@@ -58,7 +46,6 @@ export default {
 <style scoped lang="scss">
 @import '../assets/styles/variables';
 @import '../assets/styles/mixins';
-@import '../assets/styles/animations';
 
 .menu-icons {
     position: fixed;
