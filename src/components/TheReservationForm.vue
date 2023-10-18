@@ -15,7 +15,7 @@
                             name="name" 
                             v-model.trim="v$.name.$model" 
                             @blur="v$.name.$touch"/>
-                        <label for="name">Вашите имена</label>
+                        <label for="name" :class="{'fixed': v$.name.$model.length}">Вашите имена</label>
                         <div v-if="v$.name.$error">
                             <p v-for="error of v$.name.$errors" :key="error.$uid" class="warning" >
                                 <span> {{ error.$message }}</span></p>
@@ -29,7 +29,7 @@
                             name="phone"
                             v-model.trim="v$.phone.$model" 
                             @blur="v$.phone.$touch"/>
-                        <label for="phone" v-if="!v$.phone.$model.length > 0">Вашият телефон</label>
+                        <label for="phone" :class="{'fixed': v$.phone.$model.length}">Вашият телефон</label>
                         <div v-if="v$.phone.$error">
                             <p v-for="error of v$.phone.$errors" :key="error.$uid" class="warning" >
                                 <span>{{ error.$message }}</span>
@@ -44,7 +44,7 @@
                             name="email" 
                             v-model.trim="v$.email.$model" 
                             @blur="v$.email.$touch"/>
-                        <label for="email" v-if="!v$.email.$model.length > 0">Вашият e-mail:</label>
+                        <label for="email" :class="{'fixed': v$.email.$model.length}">Вашият e-mail:</label>
                         <div v-if="v$.email.$error">
                             <p v-for="error of v$.email.$errors" :key="error.$uid" class="warning" >
                                 <span>{{ error.$message }}</span>
@@ -334,7 +334,8 @@ export default {
                 font-weight: normal;
                 }
 
-                input:focus ~ label {
+                input:focus ~ label,
+                input ~ label.fixed {
                     font-size: 1.2rem;
                     top: 2px;
                 }
