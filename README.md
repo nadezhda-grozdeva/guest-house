@@ -1,4 +1,18 @@
-# Borumovata-kushta
+# Guest house 
+This is a demo website for a guest house.
+
+#Technologies used:
+- Vue 3
+- Vite
+- Vue Router (TODO)
+- Pinia
+- Sass
+- Vuelidate (https://vuelidate-next.netlify.app/)
+- Vue3-carousel (https://ismail9k.github.io/vue3-carousel/)
+- Vue-datepicker (https://vue3datepicker.com/)
+- Vue3-lazyload (https://github.com/murongg/vue3-lazyload)
+
+*******************************
 
 This template should help get you started developing with Vue 3 in Vite.
 
