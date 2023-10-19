@@ -1,26 +1,22 @@
 <template>
-    <div class="wrapper" ref="target">
-        <TransitionGroup name="fade">
-            <template v-if="animate">
-                <img class="wrapper-bg" v-lazy="backgroundImageUrl" alt="Борумовата къща" />
-                <div class="wrapper-content text-center">
-                    <base-subheading #subheading class="text-center">Какво предлагаме?</base-subheading>
-                    <div class="amenities">
-                        <ul>
-                            <li v-for="item in insideAmenities">
-                                {{ item }}
-                            </li>
-                        </ul>
-                        <img v-lazy="amenitiesImageUrl" class="text-center" alt="Борумовата къща"/>
-                        <ul>
-                            <li v-for="item in outsideAmenities">
-                                {{ item }}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </template>
-        </TransitionGroup>
+    <div class="wrapper animated-div" ref="target" :class="{'animate': animate }">
+        <img class="wrapper-bg" v-lazy="backgroundImageUrl" alt="Борумовата къща" />
+        <div class="wrapper-content text-center">
+            <base-subheading #subheading class="text-center">Какво предлагаме?</base-subheading>
+            <div class="amenities">
+                <ul>
+                    <li v-for="item in insideAmenities">
+                        {{ item }}
+                    </li>
+                </ul>
+                <img v-lazy="amenitiesImageUrl" class="text-center" alt="Борумовата къща"/>
+                <ul>
+                    <li v-for="item in outsideAmenities">
+                        {{ item }}
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -93,6 +89,15 @@ export default {
         // padding: 0;
     }
 
+    &.animated-div {
+        opacity: 0;
+        transition: all 2s;
+    }
+
+    &.animated-div.animate {
+        opacity: 1;
+    }
+
     &-bg {
         @include blured-img-bg(5px);
     }
@@ -130,7 +135,6 @@ export default {
                 &::before {
                     display: inline-block;
                     content: '\2713';
-                    // color: #8dda91;
                     color: #669457;
                 }
             }
@@ -141,6 +145,10 @@ export default {
 
             @media only screen and (max-width: 767px) {
                 width: 70%;
+            }
+
+            @media only screen and (max-width: 500px) {
+                width: 85%;
             }
 
             @media only screen and (min-width: 768px) {

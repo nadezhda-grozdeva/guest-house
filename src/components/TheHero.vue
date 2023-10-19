@@ -1,13 +1,9 @@
 <template>
-    <div class="wrapper" ref="target">
-        <TransitionGroup name="fade">
-            <template v-if="animate">
-                <img class="wrapper-img" src="../assets/images/hero/hero-img-3.jpg" alt="Borumovata kushta" />
-                <div class="wrapper-text">
-                    <h1>Борумовата къща</h1>
-                </div>
-            </template>
-        </TransitionGroup>
+    <div class="wrapper animated-div" ref="target" :class="{'animate': animate }">
+        <img class="wrapper-img" src="../assets/images/hero/hero-img-3.jpg" alt="Borumovata kushta" />
+        <div class="wrapper-text">
+            <h1>Борумовата къща</h1>
+        </div>
     </div>
 </template>
 
@@ -34,6 +30,15 @@ export default {
 .wrapper {
     position: relative;
     z-index: 2;
+
+    &.animated-div {
+        opacity: 0;
+        transition: all 2s;
+    }
+
+    &.animated-div.animate {
+        opacity: 1;
+    }
 
     &-img {
         position: relative;

@@ -1,7 +1,5 @@
 <template>
-    <div class="wrapper text-center" ref="target">
-        <TransitionGroup name="fade">
-            <template v-if="animate">
+    <div  class="wrapper text-center animated-div" ref="target" :class="{'animate': animate }">
         <img class="wrapper-bg" v-lazy="backgroundImageUrl" alt="Борумовата къща" />
         <base-card class="wrapper-app">
             <base-subheading #subheading class="text-center">Резервирай сега</base-subheading>
@@ -78,9 +76,6 @@
                 </form>
             </div>
         </base-card>
-    </template>
-
-    </TransitionGroup>
     </div>
 </template>
 
@@ -263,6 +258,15 @@ export default {
 
     @include responsive(portrait-tablets) {
         padding: 4rem 0;
+    }
+
+    &.animated-div {
+        opacity: 0;
+        transition: all 2s;
+    }
+
+    &.animated-div.animate {
+        opacity: 1;
     }
 
     &-bg {

@@ -1,21 +1,16 @@
 <template>
-    <div class="wrapper" ref="target">
-        <TransitionGroup name="fade">
-            <template v-if="animate">
-                <base-subheading #subheading class="text-center">другите за нас</base-subheading>
-                <div class="wrapper-reviews">
-                    <carousel v-bind="settings" :breakpoints="breakpoints">
-                        <slide v-for="review in reviews" :key="review">
-                            <review :review="review"></review>
-                        </slide>
-                        <template #addons>
-                        <pagination />
-                        </template>
-                    </carousel>
-                </div>
-            </template>
-        </TransitionGroup>
-
+    <div class="wrapper animated-div" ref="target" :class="{'animate': animate }">
+        <base-subheading #subheading class="text-center">другите за нас</base-subheading>
+        <div class="wrapper-reviews">
+            <carousel v-bind="settings" :breakpoints="breakpoints">
+                <slide v-for="review in reviews" :key="review">
+                    <review :review="review"></review>
+                </slide>
+                <template #addons>
+                <pagination />
+                </template>
+            </carousel>
+        </div>
     </div>
 </template>
 
@@ -76,6 +71,15 @@ export default {
 <style scoped lang="scss">
 @import '../assets/styles/mixins';
 @import '../assets/styles/animations';
+
+.animated-div {
+    opacity: 0;
+    transition: all 2s;
+}
+
+.animated-div.animate {
+    opacity: 1;
+}
 
 .wrapper {
     min-height: 500px;

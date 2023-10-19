@@ -21,6 +21,7 @@ h2 {
 
     @media only screen and (max-width: 400px) {
         font-size: 1.5rem;
+        padding: 0 1rem;
     }
     
     @media only screen and (min-width: 768px) {

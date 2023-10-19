@@ -1,14 +1,10 @@
 <template>
-    <div class="wrapper" ref="target">
-        <TransitionGroup name="fade">
-            <template v-if="animate">
-            <div class="wrapper-text text-center">
-                <base-subheading #subheading>Кои сме ние?</base-subheading>
-                <p>Само на 5 минути от центъра на Велико Търново, нашата къща за гости е разположена в подножието на борова гора, освен уникалният чист въздух това ви осигурява и най-прекрасната гледка в района. Всяка от трите спални е оборудвана с висок клас матрак и са разположени на вторият етаж и отново предлагат освен уединение и невероятна гледка. Външно оборудвано барбекю с маса изцяло оборудвана кухня и просторна всекидневна и огромен зелен двор са много малка част от всичко което ви очаква при нас. </p>
-            </div>
-            <the-gallery></the-gallery>
-        </template>
-        </TransitionGroup>
+    <div class="wrapper animated-div" ref="target" :class="{'animate': animate }">
+        <div class="wrapper-text text-center">
+            <base-subheading #subheading>Кои сме ние?</base-subheading>
+            <p>Само на 5 минути от центъра на Велико Търново, нашата къща за гости е разположена в подножието на борова гора, освен уникалният чист въздух това ви осигурява и най-прекрасната гледка в района. Всяка от трите спални е оборудвана с висок клас матрак и са разположени на вторият етаж и отново предлагат освен уединение и невероятна гледка. Външно оборудвано барбекю с маса изцяло оборудвана кухня и просторна всекидневна и огромен зелен двор са много малка част от всичко което ви очаква при нас. </p>
+        </div>
+        <the-gallery></the-gallery>
     </div>
 </template>
 
@@ -73,6 +69,15 @@ export default {
             right: 1rem;
             // transform: rotate(-180deg);
             transform: scaleX(-1);
+        }
+
+        &.animated-div {
+            opacity: 0;
+            transition: all 2s;
+        }
+
+        &.animated-div.animate {
+            opacity: 1;
         }
     }
 

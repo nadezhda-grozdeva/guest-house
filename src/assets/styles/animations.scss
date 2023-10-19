@@ -6,5 +6,14 @@
     opacity: 1;
 }
 .fade-enter-active {
-    transition: all 1s ease-in;
+    transition: all 2s ease-in;
+}
+
+
+
+// ANIMATIONS
+@keyframes fade-in {
+    0% {opacity: 0}
+    50% {opacity: .5}
+    100% {opacity: 1}
 }

@@ -4,9 +4,7 @@
     </div>
   </header>
   <main>
-    <template v-if="windowWidth < 768">
-      <the-navigation-menu ></the-navigation-menu>
-    </template>
+    <the-navigation-menu ></the-navigation-menu>
     <the-hero></the-hero>
     <the-about id="about"></the-about>
     <the-amenities id="amenities"></the-amenities>
@@ -19,7 +17,7 @@
 <script>
 import TheNavigationMenu from './components/TheNavigationMenu.vue';
 
-import { ref, defineAsyncComponent, onMounted, onUnmounted } from 'vue'
+import { defineAsyncComponent } from 'vue'
 
 export default {
   components: {
@@ -45,20 +43,6 @@ export default {
     TheFooter: defineAsyncComponent(() =>
       import('./components/TheFooter.vue')
     )
-  },
-  setup() {
-    const windowWidth = ref(window.innerWidth);
-
-    onMounted(() => {
-      window.addEventListener('resize', () => {windowWidth.value = window.innerWidth} )
-    })
-    onUnmounted(() => {
-      window.removeEventListener('resize', () => {windowWidth.value = window.innerWidth})
-    })
-
-    return {
-      windowWidth
-    }
   }
 }
 
