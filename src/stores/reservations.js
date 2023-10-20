@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 export const useReservationsStore = defineStore('reservations', {
   state: () => ({
       reservations: [],
-      firebaseEndpoint: import.meta.env.VITE_FIREBASE_API_ENDPOINT,
+      firebaseEndpoint: import.meta.env.VITE_FIREBASE_API_URL,
   }),
   getters: {
     // TODO

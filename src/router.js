@@ -1,11 +1,19 @@
-import { createRouter, createMemoryHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
+import Home from './components/pages/Home.vue';
 
 const router = createRouter({
-  history: createMemoryHistory(),
-  routes: [],
+  history: createWebHistory(),
+  routes: [
+    {
+      path: '/',
+      component: Home
+    },
+    {
+      path: '/admin',
+      component: () => import('./components/pages/User.vue')
+    }
+  ],
   scrollBehavior(to, from, savedPosition) {
-    // console.log(window.location.href)
-
     if (to.hash) {
       return {
         el: to.hash,

@@ -22,8 +22,8 @@
                     <div class="form-control">
                         <input 
                             :class="{'border-red': v$.phone.$error}" 
-                            type="number"
-                            id="phone"  
+                            type="text" number
+                            id="phone"
                             name="phone"
                             v-model.trim="v$.phone.$model" 
                             @blur="v$.phone.$touch"/>
@@ -165,6 +165,7 @@ export default {
 
             if (isFormValid && !invalidCalendarInput.value) {
                 calendarStore.addDisabledDates(datesToBeDisabled)
+                // console.log(state.phone.value.length)
                 const serverResponse = await reservationsStore.addReservation({
                     id: Math.floor(Math.random() * 100),
                     name: state.name,

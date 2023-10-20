@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper animated-div" ref="target" :class="{'animate': animate }">
-        <img class="wrapper-img" src="../assets/images/hero/hero-img-3.jpg" alt="Borumovata kushta" />
+        <img class="wrapper-img" :src="imgUrl" alt="Borumovata kushta" />
         <div class="wrapper-text">
             <h1>Борумовата къща</h1>
         </div>
@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import { ref, computed, onMounted, onUnmounted} from 'vue';
 //  COMPOSABLE
 import { useIntersectionObserver } from '../composables/intersectionObserver.js';
 
@@ -15,7 +16,23 @@ export default {
     setup() {
         const { animate, target } = useIntersectionObserver()
 
+        const windowWidth = ref(window.innerWidth);
+        const imgUrlDesktop = new URL('@/assets/images/hero/hero-img-3.jpg', import.meta.url).href
+        const imgUrlMobile = new URL('@/assets/images/hero/hero-img-3-780.jpg', import.meta.url).href
+
+        const imgUrl = computed(function() {
+            return windowWidth.value > 767 ? imgUrlDesktop : imgUrlMobile
+        })
+
+        onMounted(() => {
+        window.addEventListener('resize', () => {windowWidth.value = window.innerWidth} )
+        })
+        onUnmounted(() => {
+        window.removeEventListener('resize', () => {windowWidth.value = window.innerWidth})
+        })
+
         return {
+            imgUrl,
             animate,
             target
         }

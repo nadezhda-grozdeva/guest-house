@@ -68,11 +68,19 @@
         <div class="form-control">
             <base-button #base-button class="button">Изпрати</base-button>
         </div>
+        <transition name="fadeInOut">
+            <p v-if="ServerResponseMessage.message" class="formResult" :class="ServerResponseMessage.response">
+                {{ ServerResponseMessage.message }}
+            </p>
+        </transition>
     </form>
 </template>
 
 <script>
 import { reactive } from 'vue';
+
+// STORE
+import { useMessagesStore } from '../stores/messages';
 
 // VUELIDATE
 import { useVuelidate } from '@vuelidate/core'
@@ -86,6 +94,11 @@ export default {
         BaseButton,
     },
     setup() {
+         //SETTING STORE
+         const messagesStore = useMessagesStore();
+
+        const ServerResponseMessage = reactive({});
+
         const state = reactive({
             name: '',
             phone: '',
@@ -118,6 +131,23 @@ export default {
         async function submitForm(data) {
             const isFormValid = await v$.value.$validate();
             if (isFormValid) {
+                const serverResponse = await messagesStore.addMessage({
+                    // id: Math.floor(Math.random() * 100),
+                    name: state.name,
+                    phone: state.phone,
+                    email: state.email,
+                    text: state.text
+                })
+                .then((res) => {
+                    ServerResponseMessage.response = res.response,
+                    ServerResponseMessage.message = res.message,
+                    setTimeout(() => {
+                        ServerResponseMessage.response = ''
+                        ServerResponseMessage.message = ''
+                    }, 5000);
+                })
+
+                // RESET FORM
                 state.name='';
                 state.phone='';
                 state.email='';
@@ -129,7 +159,8 @@ export default {
 
         return {
             state, v$,
-            submitForm
+            submitForm,
+            ServerResponseMessage
         }
     }
 }
@@ -225,6 +256,18 @@ export default {
         }
     }
 
+    .formResult {
+        margin: 1rem 0;
+        animate: fadeInOut 3s;
+    }
+
+    .formResult.success {
+        color: green;
+    }
+    .formResult.error {
+        color: red
+    }
+
     textarea {
         width: 100%;
     }
@@ -233,6 +276,29 @@ export default {
         margin-top: 1rem;
     }
 }
+
+// TRANSITION CLASSES
+.fadeInOut-enter-from,
+.fadeInOut-leave-to {
+    opacity: 0;
+}
+
+.fadeInOut-enter-to,
+.fadeInOut-leave-from {
+    opacity: 1;
+}
+
+.fadeInOut-enter-active,
+.fadeInOut-leave-active {
+   transition: all 1s ease-in;
+}
+
+@keyframes fadeInOutAnimation{
+    0% {opacity: 0;}
+    50% { opacity: 1;}
+    100% {opacity: 0;}
+}
+
 
 </style>
 
